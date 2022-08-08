@@ -1,8 +1,485 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import Table from "../components/common/Table";
+import {useEffect, useState} from "react";
+
+
+const TableRow = ({ row }) => {
+  return (
+      <>
+        <tr>
+          {row.map((val, number) => <td key={[number, 'td'].join("_")}>{val}</td>)}
+        </tr>
+      </>
+  )
+}
+
+const questions= {
+  "1":{
+    name: "Dine in or take out",
+    options:["Dine in","Take out"]
+  },
+  "2":{
+    name: "what describes the food quality best",
+    options:[
+      "Excellent",
+      "Good",
+      "Average",
+      "Dissatisfied"
+    ]
+  },
+  "3":{
+    name: "what describes the order accuracy best",
+    options:[
+      "Excellent",
+      "Good",
+      "Average",
+      "Dissatisfied"
+    ]
+  },
+  "4":{
+    name: "what describes the overall service best",
+    options:[
+      "Excellent",
+      "Good",
+      "Average",
+      "Dissatisfied"
+    ]
+  },
+  "5":{
+    name: "what describes the value for money best",
+    options:[
+      "Excellent",
+      "Good",
+      "Average",
+      "Dissatisfied"
+    ]
+  },
+  "6":{
+    name: "what describes the overall experience best",
+    options:[
+      "Excellent",
+      "Good",
+      "Average",
+      "Dissatisfied"
+    ]
+  },
+}
+
+
+
+
+const header = ['question', 'options',"Dine in","Take out"]
+
+
+const data=[{
+  1: "Take out",
+  2: "Average",
+  3: "Good",
+  4: "Good",
+  5: "Average",
+  6: "Good"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Good",
+  5: "Good",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Good",
+  3: "Good",
+  4: "Excellent",
+  5: "Good",
+  6: "Good"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Good",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Dissatisfied",
+  3: "Dissatisfied",
+  4: "Dissatisfied",
+  5: "Dissatisfied",
+  6: "Average"
+}, {
+  1: "Dine in",
+  2: "Good",
+  3: "Good",
+  4: "Good",
+  5: "Average",
+  6: "Good"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Good",
+  3: "Good",
+  4: "Good",
+  5: "Good",
+  6: "Good"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Good",
+  6: "Good"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Good",
+  3: "Average",
+  4: "Average",
+  5: "Good",
+  6: "Average"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Good",
+  4: "Good",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Good",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Good",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Good",
+  5: "Excellent",
+  6: "Good"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Good",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Good",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Good",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Good",
+  6: "Good"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Good",
+  5: "Good",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Good",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Good"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Good",
+  4: "Excellent",
+  5: "Good",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Good",
+  6: "Good"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Take out",
+  2: "Excellent",
+  3: "Good",
+  4: "Good",
+  5: "Good",
+  6: "Good"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}, {
+  1: "Dine in",
+  2: "Excellent",
+  3: "Excellent",
+  4: "Excellent",
+  5: "Excellent",
+  6: "Excellent"
+}]
+
+
 
 export default function Home() {
+
+  const headerQuestion = 1;
+  const [rows, setRows] = useState({})
+
+  const populateRow = (record, rows) =>{
+    Object.entries(record).filter(([key, value]) => key !== "1").map(([key, value]) => {
+      if(!rows[questions[key].name])
+      {
+        rows[questions[key].name] = {}
+      }
+      if(!rows[questions[key].name][value])
+      {
+        rows[questions[key].name][value] = {}
+      }
+      /*if(!rows[questions[key].name][value][record])
+      {
+        rows[questions[key].name][value][record] = {}
+      }*/
+      rows[questions[key].name][value][record[headerQuestion]] = rows[questions[key].name][value][record[headerQuestion]] ? rows[questions[key].name][value][record[headerQuestion]] + 1 : 1;
+    })
+  }
+  useEffect(() => {
+    if(Object.keys(rows).length === 0)
+    {
+      const rows = {}
+      data.map(record => populateRow(record, rows));
+      setRows(rows);
+    }
+  })
+
+  console.log(rows)
   return (
     <div className={styles.container}>
       <Head>
@@ -12,44 +489,20 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <Table header={header} rows={rows} />
+       {/* <table>
+          <thead>
+          <tr>
+            <th>fields</th>
+            {options[0].map(head => <th>{head}</th>)}
+          </tr>
+          </thead>
+          <tbody>
+          <td> {fields.map((head, headNum) => <th key={[headNum, 'header'].join("_")}>{head}</th>)}
+            {datas.map((row, rowNum) => <TableRow key={[rowNum, 'row'].join("_")} row={row} />)}
+          </td>
+          </tbody>
+        </table>*/}
       </main>
 
       <footer className={styles.footer}>

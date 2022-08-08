@@ -1,0 +1,268 @@
+@import "../../../styles/variables";
+
+.container {
+  width: 100%;
+  height: 100%;
+
+  h5 {
+    margin-bottom: unset;
+    //margin-top: 20px;
+    text-align: left;
+    font: normal normal 600 16px/25px Poppins;
+    letter-spacing: 0px;
+    color: #323368;
+    opacity: 1;
+  }
+
+  a {
+    font: normal normal normal 14px/21px Poppins;
+  }
+}
+
+.noRecordBanner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
+  .title {
+    text-align: center;
+    font: normal normal 600 20px/30px Poppins;
+    letter-spacing: 0;
+    color: #AAAAB5;
+  }
+
+  .desc {
+    text-align: center;
+    font: normal normal normal 16px/30px Poppins;
+    letter-spacing: 0px;
+    color: #AAAAB5;
+  }
+
+  .button {
+    margin-top: 10px;
+    width: 167px;
+    height: 50px;
+    cursor: pointer;
+    /* UI Properties */
+    background: #20CC9E 0% 0% no-repeat padding-box;
+    border-radius: 8px;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: normal normal 500 16px/25px Poppins;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+  }
+}
+
+.table {
+  width: 100%;
+  height: 100%;
+  min-width: 600px;
+  //height: 100%;
+  //max-height: 700px;
+  overflow-x: scroll;
+
+
+  .cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-width: 75px;
+    //min-width: 75px;
+    .title {
+      text-align: left;
+      font: normal normal 500 14px/20px Poppins;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      color: #323368;
+      opacity: 1;
+    }
+
+    .actions {
+      display: flex;
+      width: 100%;
+      gap: 5px;
+
+      .action {
+        cursor: pointer;
+        position: relative;
+        flex-direction: column;
+        display: flex;
+        gap: 10px;
+
+        &:hover {
+          .actionName {
+            position: absolute;
+            bottom: -20px;
+            border-radius: 3px;
+            white-space: nowrap;
+            left: -15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font: normal normal 500 8px/12px Poppins;
+            color: $whiteColor;
+            background-color: #A0A0AE;
+            height: 16px;
+            min-width: 45px;
+          }
+        }
+
+        .actionName {
+          display: none;
+        }
+      }
+    }
+
+    .desc {
+      text-align: left;
+      font: normal normal 500 10px/16px Poppins;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: #AAAAB5;
+      opacity: 1;
+    }
+
+    &:first-of-type {
+      //flex: 1 1 auto;
+      min-width: 350px;
+
+      .mobileMenu {
+        cursor: pointer;
+        display: none;
+      }
+    }
+  }
+
+  .subRowCollection{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .row, .header, .subRow {
+    min-width: 730px;
+    min-height: 65px;
+    gap: 10px;
+    //justify-content: space-between;
+    //justify-content: space-evenly;
+    border-bottom: 2px solid #EEEEF0;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    position: relative;
+  }
+
+  .subRow{
+    min-width: unset;
+    min-height: 30px;
+    border-bottom: 1px solid #EEEEF0;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #FFFFFF;
+    align-items: flex-end;
+    padding-bottom: 5px;
+
+    .cell {
+      .title {
+        font: normal normal medium 10px/16px Poppins;
+        font-size: 10px;
+        color: #AAADBA;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      &:nth-of-type(2){
+        width: 350px;
+      }
+    }
+
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .table {
+    .cell {
+      &:first-of-type {
+        .mobileMenu {
+          position: absolute;
+          left: 0;
+          display: flex;
+
+          .actions {
+            position: absolute;
+            left: 0;
+            top: 30px;
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 15px;
+            background-color: $headersColor;
+            border-radius: 8px;
+            width: 150px;
+            gap: 5px;
+            z-index: 10;
+
+            &.active {
+              display: flex;
+            }
+
+            .action {
+              flex-direction: row;
+
+              &:hover {
+                .actionName {
+                  position: relative;
+                  display: flex;
+                  color: $whiteColor;
+                  bottom: unset;
+                  border-radius: unset;
+                  white-space: nowrap;
+                  left: unset;
+                  justify-content: center;
+                  align-items: center;
+                  font: unset;
+                  background-color: transparent;
+                  height: unset;
+                  min-width: unset;
+                }
+              }
+
+              .actionName {
+                display: flex;
+                color: $whiteColor;
+              }
+            }
+          }
+        }
+
+        .title, .desc {
+          margin-left: 30px;
+        }
+      }
+
+      &:last-of-type {
+        display: none;
+      }
+
+    }
+  }
+}
