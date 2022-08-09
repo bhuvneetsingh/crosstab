@@ -65,7 +65,7 @@ const Table = ({
                                                 {entryKey}
                                                 </div>
                                                 {
-                                                    Object.keys(entryValue).map(val => (
+                                                    Object.keys(entryValue).sort((a, b) => a > b).map(val => (
                                                         <div key={['rowItem', rowNumber].join("_")}
                                                              className={classNames(styles.cell)}>
                                                             {entryValue[val] ? entryValue[val] : 0}

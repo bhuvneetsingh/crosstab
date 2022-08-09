@@ -461,7 +461,9 @@ export default function Home() {
       }
       if(!rows[questions[key].name][value])
       {
-        rows[questions[key].name][value] = {}
+        const obj = {};
+        questions[1].options.map(headerItem => obj[headerItem] = 0)
+        rows[questions[key].name][value] = obj
       }
       /*if(!rows[questions[key].name][value][record])
       {
